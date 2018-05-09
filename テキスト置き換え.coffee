@@ -72,7 +72,7 @@ class Main
       warning.push("#{index}行目 - #{line[keyIndex]}")
 
     if warning.length > 0
-      alert("使用されなかったデータがあります。。\n#{warning.join('\n')}")
+      alert("使用されなかったデータがあります。\n#{warning.join('\n')}")
 
 
 
