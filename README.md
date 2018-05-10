@@ -4,11 +4,12 @@ aiファイル内のテキストアイテムのテキストをtsvに従って置
 
 # インストール方法
 
-以下のファイルをダウンロードし、 `/Applications/Adobe Illustrator CC */Presets.localized/*/Scripts` あたりに入れてください。  
+以下の2ファイルをダウンロードし、 `/Applications/Adobe Illustrator CC */Presets.localized/*/Scripts` あたりに入れてください。  
 例えばIllustrator CC 2018の日本語環境であれば  
 `/Applications/Adobe Illustrator CC 2018/Presets.localized/ja_JP/スクリプト` になります。  
 
-https://raw.githubusercontent.com/kyubuns/illustrator_replace/master/%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88.jsx
+[テキスト置き換え.jsx](https://raw.githubusercontent.com/kyubuns/illustrator_replace/master/%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E7%BD%AE%E3%81%8D%E6%8F%9B%E3%81%88.jsx)
+[テキスト一覧を出力.jsx](https://raw.githubusercontent.com/kyubuns/illustrator_replace/master/%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E4%B8%80%E8%A6%A7%E3%82%92%E5%87%BA%E5%8A%9B.jsx)
 
 # 使い方
 
@@ -45,3 +46,7 @@ illustrator上からスクリプトを実行します。
 テキストが置換されます。
 
 ![monosnap 2018-05-10 11-00-41](https://user-images.githubusercontent.com/961165/39848343-64b1f75e-5441-11e8-9dbe-2c7400cc6d50.png)
+
+# おまけ
+
+テキスト一覧を出力.jsxを実行すると、今開いているファイルに存在するテキストが全て出力されます。
