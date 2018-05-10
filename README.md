@@ -31,7 +31,7 @@ GoogleSpreadsheetなどを使用して
 tsvに変換します。
 この時、ファイル名が日本語だと実行に失敗することがあるので、英語名に治しておいて下さい。
 
-![monosnap 2018-05-10 10-56-51](https://user-images.githubusercontent.com/961165/39848255-dc589e6c-5440-11e8-8297-36b2356f7b61.png)
+![39848255-dc589e6c-5440-11e8-8297-36b2356f7b61](https://user-images.githubusercontent.com/961165/39848400-b84b05d6-5441-11e8-9c3d-64c4e50dfd3c.png)
 
 ## スクリプトを実行
 
