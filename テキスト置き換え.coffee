@@ -60,7 +60,7 @@ class Main
       original = text
       for line, index in dict
         a = text
-        text = text.replace(new RegExp(line[keyIndex], "g"), line[valueIndex])
+        text = text.replace(line[keyIndex], line[valueIndex])
         if a != text
           used.push(index)
       if text != original
