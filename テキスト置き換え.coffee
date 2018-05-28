@@ -60,6 +60,7 @@ class Main
       original = text
       for line, index in dict
         a = text
+        continue if line[keyIndex] == "" || line[valueIndex] == ""
         text = text.replace(line[keyIndex], line[valueIndex])
         if a != text
           used.push(index)

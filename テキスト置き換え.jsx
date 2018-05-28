@@ -98,6 +98,9 @@
         for (index = l = 0, len2 = dict.length; l < len2; index = ++l) {
           line = dict[index];
           a = text;
+          if (line[keyIndex] === "" || line[valueIndex] === "") {
+            continue;
+          }
           text = text.replace(line[keyIndex], line[valueIndex]);
           if (a !== text) {
             used.push(index);
