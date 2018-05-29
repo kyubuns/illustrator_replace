@@ -43,9 +43,9 @@ class Main
     valueIndex = 0
 
     for e, index in dict[0]
-      if e == 'KEY'
+      if e == 'KEY' || e == 'Key' || e == 'key'
         keyIndex = index
-      if e == 'VALUE'
+      if e == 'VALUE' || e == 'Value' || e == 'value'
         valueIndex = index
 
     if keyIndex == 0 && valueIndex == 0

@@ -72,10 +72,10 @@
       ref = dict[0];
       for (index = j = 0, len = ref.length; j < len; index = ++j) {
         e = ref[index];
-        if (e === 'KEY') {
+        if (e === 'KEY' || e === 'Key' || e === 'key') {
           keyIndex = index;
         }
-        if (e === 'VALUE') {
+        if (e === 'VALUE' || e === 'Value' || e === 'value') {
           valueIndex = index;
         }
       }
