@@ -14,6 +14,18 @@
     return this.replace(/^\s+|\s+$/g, '');
   };
 
+  String.prototype.count = function(str) {
+    var a, i, j, len;
+    i = 0;
+    for (j = 0, len = this.length; j < len; j++) {
+      a = this[j];
+      if (a === str) {
+        i += 1;
+      }
+    }
+    return i;
+  };
+
   Array.prototype.indexOf = function(obj) {
     var a, i, j, len;
     for (i = j = 0, len = this.length; j < len; i = ++j) {
@@ -29,13 +41,20 @@
     function Tsv() {}
 
     Tsv.load = function(filePath) {
-      var a, body, elements, file, j, len, ref, text;
+      var a, body, element_num, elements, file, j, len, ref, text;
       file = new File(filePath);
       file.encoding = "UTF-8";
       file.open("r", "TEXT");
       body = [];
+      element_num = 0;
       while (!file.eof) {
         text = file.readln();
+        if (element_num === 0) {
+          element_num = text.count('\t');
+        }
+        while (element_num > text.count('\t')) {
+          text += file.readln();
+        }
         elements = [];
         ref = text.split('\t');
         for (j = 0, len = ref.length; j < len; j++) {

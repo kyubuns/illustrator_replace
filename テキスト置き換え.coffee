@@ -7,6 +7,12 @@ String.prototype.endsWith = (suffix) ->
 String.prototype.trim = ->
   return this.replace(/^\s+|\s+$/g,'')
 
+String.prototype.count = (str) ->
+  i = 0
+  for a in this
+    i += 1 if a == str
+  i
+
 Array.prototype.indexOf = (obj) ->
   for a, i in this
     if obj == a
@@ -20,8 +26,16 @@ class Tsv
     file.encoding = "UTF-8"
     file.open("r", "TEXT")
     body = []
+    element_num = 0
+
+    # セル内に改行が入っていることを考慮して
+    # 1行目を基準に要素数が集まるまでテキストをつなげる
     while(!file.eof)
       text = file.readln()
+      element_num = text.count('\t') if element_num == 0
+      while(element_num > text.count('\t'))
+        text += file.readln()
+
       elements = []
       for a in text.split('\t')
         elements.push(a.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " "))
