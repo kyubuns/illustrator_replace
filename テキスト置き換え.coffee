@@ -66,6 +66,9 @@ class Main
       alert("1行目にKEY, VALUEが見つかりません。")
       return
 
+    # 文字列が長いものからヒットさせる
+    dict.sort (a, b) -> b[keyIndex].length - a[keyIndex].length
+
     used = []
     for textFrame in root.textFrames
       continue if textFrame.locked

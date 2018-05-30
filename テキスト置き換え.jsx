@@ -102,6 +102,9 @@
         alert("1行目にKEY, VALUEが見つかりません。");
         return;
       }
+      dict.sort(function(a, b) {
+        return b[keyIndex].length - a[keyIndex].length;
+      });
       used = [];
       ref1 = root.textFrames;
       for (k = 0, len1 = ref1.length; k < len1; k++) {
