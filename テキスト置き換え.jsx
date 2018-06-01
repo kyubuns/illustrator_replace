@@ -85,9 +85,10 @@
     };
 
     Main.prototype.replace = function(root, dict) {
-      var a, e, index, j, k, keyIndex, l, len, len1, len2, len3, line, m, original, ref, ref1, text, textFrame, used, valueIndex, warning;
+      var a, e, index, j, k, keyIndex, l, len, len1, len2, len3, len4, line, lineIndex, m, n, original, ref, ref1, text, textFrame, used, valueIndex, warning;
       keyIndex = 0;
       valueIndex = 0;
+      lineIndex = dict[0].length;
       ref = dict[0];
       for (index = j = 0, len = ref.length; j < len; index = ++j) {
         e = ref[index];
@@ -102,13 +103,17 @@
         alert("1行目にKEY, VALUEが見つかりません。");
         return;
       }
+      for (index = k = 0, len1 = dict.length; k < len1; index = ++k) {
+        line = dict[index];
+        line[lineIndex] = index + 1;
+      }
       dict.sort(function(a, b) {
         return b[keyIndex].length - a[keyIndex].length;
       });
       used = [];
       ref1 = root.textFrames;
-      for (k = 0, len1 = ref1.length; k < len1; k++) {
-        textFrame = ref1[k];
+      for (l = 0, len2 = ref1.length; l < len2; l++) {
+        textFrame = ref1[l];
         if (textFrame.locked) {
           continue;
         }
@@ -117,7 +122,7 @@
         }
         text = textFrame.contents.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " ");
         original = text;
-        for (index = l = 0, len2 = dict.length; l < len2; index = ++l) {
+        for (index = m = 0, len3 = dict.length; m < len3; index = ++m) {
           line = dict[index];
           a = text;
           if (line[keyIndex] === "" || line[valueIndex] === "") {
@@ -125,20 +130,23 @@
           }
           text = text.replace(line[keyIndex], line[valueIndex]);
           if (a !== text) {
-            used.push(index);
+            used.push(line[keyIndex]);
           }
         }
         if (text !== original) {
           textFrame.contents = text;
         }
       }
+      dict.sort(function(a, b) {
+        return a[lineIndex] - b[lineIndex];
+      });
       warning = [];
-      for (index = m = 0, len3 = dict.length; m < len3; index = ++m) {
+      for (index = n = 0, len4 = dict.length; n < len4; index = ++n) {
         line = dict[index];
-        if (used.indexOf(index) !== -1) {
+        if (used.indexOf(line[keyIndex]) !== -1) {
           continue;
         }
-        warning.push(index + "行目 - " + line[keyIndex]);
+        warning.push(line[lineIndex] + "行目 - " + line[keyIndex]);
       }
       if (warning.length > 0) {
         return alert("使用されなかったデータがあります。\n" + (warning.join('\n')));

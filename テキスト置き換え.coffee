@@ -55,6 +55,7 @@ class Main
   replace: (root, dict) ->
     keyIndex = 0
     valueIndex = 0
+    lineIndex = dict[0].length
 
     for e, index in dict[0]
       if e == 'KEY' || e == 'Key' || e == 'key'
@@ -65,6 +66,9 @@ class Main
     if keyIndex == 0 && valueIndex == 0
       alert("1行目にKEY, VALUEが見つかりません。")
       return
+
+    for line, index in dict
+      line[lineIndex] = index + 1
 
     # 文字列が長いものからヒットさせる
     dict.sort (a, b) -> b[keyIndex].length - a[keyIndex].length
@@ -80,14 +84,16 @@ class Main
         continue if line[keyIndex] == "" || line[valueIndex] == ""
         text = text.replace(line[keyIndex], line[valueIndex])
         if a != text
-          used.push(index)
+          used.push(line[keyIndex])
       if text != original
         textFrame.contents = text
 
+    dict.sort (a, b) -> a[lineIndex] - b[lineIndex]
+
     warning = []
     for line, index in dict
-      continue if used.indexOf(index) != -1
-      warning.push("#{index}行目 - #{line[keyIndex]}")
+      continue if used.indexOf(line[keyIndex]) != -1
+      warning.push("#{line[lineIndex]}行目 - #{line[keyIndex]}")
 
     if warning.length > 0
       alert("使用されなかったデータがあります。\n#{warning.join('\n')}")
