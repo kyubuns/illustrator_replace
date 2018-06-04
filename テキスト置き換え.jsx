@@ -85,7 +85,7 @@
     };
 
     Main.prototype.replace = function(root, dict) {
-      var e, i, index, j, k, keyIndex, l, len, len1, len2, len3, len4, len5, line, lineIndex, m, n, o, original, p, ref, ref1, ref2, ref3, replacedTextColor, replaced_texts, start_index, t, text, textArtRange, textFrame, used, valueIndex, warning;
+      var e, i, index, j, k, keyIndex, l, len, len1, len2, len3, len4, len5, len6, line, lineIndex, m, n, o, original, p, q, ref, ref1, ref2, ref3, replacedTextColor, replaced_texts, start_index, t, text, textArtRange, textFrame, used, valueIndex, warning;
       keyIndex = 0;
       valueIndex = 0;
       lineIndex = dict[0].length;
@@ -137,16 +137,22 @@
           start_index = text.indexOf(line[keyIndex]);
           if (start_index !== -1) {
             text = text.replace(line[keyIndex], line[valueIndex]);
+            for (n = 0, len4 = replaced_texts.length; n < len4; n++) {
+              i = replaced_texts[n];
+              if (i[0] > start_index) {
+                i[0] += line[valueIndex].length - line[keyIndex].length;
+              }
+            }
             replaced_texts.push([start_index, line[valueIndex].length]);
             used.push(line[keyIndex]);
           }
         }
-        if (text !== original) {
+        if (replaced_texts.length > 0) {
           textFrame.contents = text;
           textArtRange = textFrame.textRange;
-          for (n = 0, len4 = replaced_texts.length; n < len4; n++) {
-            t = replaced_texts[n];
-            for (i = o = ref2 = t[0], ref3 = t[0] + t[1] - 1; ref2 <= ref3 ? o <= ref3 : o >= ref3; i = ref2 <= ref3 ? ++o : --o) {
+          for (o = 0, len5 = replaced_texts.length; o < len5; o++) {
+            t = replaced_texts[o];
+            for (i = p = ref2 = t[0], ref3 = t[0] + t[1] - 1; ref2 <= ref3 ? p <= ref3 : p >= ref3; i = ref2 <= ref3 ? ++p : --p) {
               textArtRange.characters[i].fillColor = replacedTextColor;
             }
           }
@@ -156,7 +162,7 @@
         return a[lineIndex] - b[lineIndex];
       });
       warning = [];
-      for (index = p = 0, len5 = dict.length; p < len5; index = ++p) {
+      for (index = q = 0, len6 = dict.length; q < len6; index = ++q) {
         line = dict[index];
         if (used.indexOf(line[keyIndex]) !== -1) {
           continue;

@@ -93,10 +93,15 @@ class Main
         start_index = text.indexOf(line[keyIndex])
         if start_index != -1
           text = text.replace(line[keyIndex], line[valueIndex])
+
+          # 先に後ろを置換してしまっていたらstart_indexをずらす
+          for i in replaced_texts
+            if i[0] > start_index
+              i[0] += (line[valueIndex].length - line[keyIndex].length)
           replaced_texts.push([start_index, line[valueIndex].length])
           used.push(line[keyIndex])
 
-      if text != original
+      if replaced_texts.length > 0
         textFrame.contents = text
 
         textArtRange = textFrame.textRange
