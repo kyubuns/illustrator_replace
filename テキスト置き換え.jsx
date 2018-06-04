@@ -107,10 +107,11 @@
         line = dict[index];
         line[lineIndex] = index + 1;
       }
+      used = [];
+      used.push(dict[0][keyIndex]);
       dict.sort(function(a, b) {
         return b[keyIndex].length - a[keyIndex].length;
       });
-      used = [];
       ref1 = root.textFrames;
       for (l = 0, len2 = ref1.length; l < len2; l++) {
         textFrame = ref1[l];

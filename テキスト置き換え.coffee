@@ -70,10 +70,12 @@ class Main
     for line, index in dict
       line[lineIndex] = index + 1
 
+    used = []
+    used.push(dict[0][keyIndex])
+
     # 文字列が長いものからヒットさせる
     dict.sort (a, b) -> b[keyIndex].length - a[keyIndex].length
 
-    used = []
     for textFrame in root.textFrames
       continue if textFrame.locked
       continue if textFrame.visible
