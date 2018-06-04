@@ -85,10 +85,15 @@
     };
 
     Main.prototype.replace = function(root, dict) {
-      var a, e, index, j, k, keyIndex, l, len, len1, len2, len3, len4, line, lineIndex, m, n, original, ref, ref1, text, textFrame, used, valueIndex, warning;
+      var e, i, index, j, k, keyIndex, l, len, len1, len2, len3, len4, len5, line, lineIndex, m, n, o, original, p, ref, ref1, ref2, ref3, replacedTextColor, replaced_texts, start_index, t, text, textArtRange, textFrame, used, valueIndex, warning;
       keyIndex = 0;
       valueIndex = 0;
       lineIndex = dict[0].length;
+      replacedTextColor = new CMYKColor();
+      replacedTextColor.black = 0;
+      replacedTextColor.cyan = 50;
+      replacedTextColor.magenta = 100;
+      replacedTextColor.yellow = 50;
       ref = dict[0];
       for (index = j = 0, len = ref.length; j < len; index = ++j) {
         e = ref[index];
@@ -123,26 +128,35 @@
         }
         text = textFrame.contents.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " ");
         original = text;
+        replaced_texts = [];
         for (index = m = 0, len3 = dict.length; m < len3; index = ++m) {
           line = dict[index];
-          a = text;
           if (line[keyIndex] === "" || line[valueIndex] === "") {
             continue;
           }
-          text = text.replace(line[keyIndex], line[valueIndex]);
-          if (a !== text) {
+          start_index = text.indexOf(line[keyIndex]);
+          if (start_index !== -1) {
+            text = text.replace(line[keyIndex], line[valueIndex]);
+            replaced_texts.push([start_index, line[valueIndex].length]);
             used.push(line[keyIndex]);
           }
         }
         if (text !== original) {
           textFrame.contents = text;
+          textArtRange = textFrame.textRange;
+          for (n = 0, len4 = replaced_texts.length; n < len4; n++) {
+            t = replaced_texts[n];
+            for (i = o = ref2 = t[0], ref3 = t[0] + t[1] - 1; ref2 <= ref3 ? o <= ref3 : o >= ref3; i = ref2 <= ref3 ? ++o : --o) {
+              textArtRange.characters[i].fillColor = replacedTextColor;
+            }
+          }
         }
       }
       dict.sort(function(a, b) {
         return a[lineIndex] - b[lineIndex];
       });
       warning = [];
-      for (index = n = 0, len4 = dict.length; n < len4; index = ++n) {
+      for (index = p = 0, len5 = dict.length; p < len5; index = ++p) {
         line = dict[index];
         if (used.indexOf(line[keyIndex]) !== -1) {
           continue;

@@ -57,6 +57,12 @@ class Main
     valueIndex = 0
     lineIndex = dict[0].length
 
+    replacedTextColor = new CMYKColor()
+    replacedTextColor.black = 0
+    replacedTextColor.cyan = 50
+    replacedTextColor.magenta = 100
+    replacedTextColor.yellow = 50
+
     for e, index in dict[0]
       if e == 'KEY' || e == 'Key' || e == 'key'
         keyIndex = index
@@ -81,14 +87,22 @@ class Main
       continue if textFrame.visible
       text = textFrame.contents.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " ")
       original = text
+      replaced_texts = []
       for line, index in dict
-        a = text
         continue if line[keyIndex] == "" || line[valueIndex] == ""
-        text = text.replace(line[keyIndex], line[valueIndex])
-        if a != text
+        start_index = text.indexOf(line[keyIndex])
+        if start_index != -1
+          text = text.replace(line[keyIndex], line[valueIndex])
+          replaced_texts.push([start_index, line[valueIndex].length])
           used.push(line[keyIndex])
+
       if text != original
         textFrame.contents = text
+
+        textArtRange = textFrame.textRange
+        for t in replaced_texts
+          for i in [t[0]..(t[0] + t[1] - 1)]
+            textArtRange.characters[i].fillColor = replacedTextColor
 
     dict.sort (a, b) -> a[lineIndex] - b[lineIndex]
 
