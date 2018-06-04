@@ -34,6 +34,7 @@ class Tsv
       text = file.readln()
       element_num = text.count('\t') if element_num == 0
       while(element_num > text.count('\t'))
+        text += " "
         text += file.readln()
 
       elements = []
@@ -86,10 +87,9 @@ class Main
       continue if textFrame.locked
       continue if textFrame.visible
       text = textFrame.contents.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " ")
-      original = text
       replaced_texts = []
       for line, index in dict
-        continue if line[keyIndex] == "" || line[valueIndex] == ""
+        continue if line[keyIndex] == "" || line[valueIndex] == "" || line[keyIndex] == " " || line[valueIndex] == " "
         start_index = text.indexOf(line[keyIndex])
         if start_index != -1
           text = text.replace(line[keyIndex], line[valueIndex])

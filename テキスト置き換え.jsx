@@ -53,6 +53,7 @@
           element_num = text.count('\t');
         }
         while (element_num > text.count('\t')) {
+          text += " ";
           text += file.readln();
         }
         elements = [];
@@ -85,7 +86,7 @@
     };
 
     Main.prototype.replace = function(root, dict) {
-      var e, i, index, j, k, keyIndex, l, len, len1, len2, len3, len4, len5, len6, line, lineIndex, m, n, o, original, p, q, ref, ref1, ref2, ref3, replacedTextColor, replaced_texts, start_index, t, text, textArtRange, textFrame, used, valueIndex, warning;
+      var e, i, index, j, k, keyIndex, l, len, len1, len2, len3, len4, len5, len6, line, lineIndex, m, n, o, p, q, ref, ref1, ref2, ref3, replacedTextColor, replaced_texts, start_index, t, text, textArtRange, textFrame, used, valueIndex, warning;
       keyIndex = 0;
       valueIndex = 0;
       lineIndex = dict[0].length;
@@ -127,11 +128,10 @@
           continue;
         }
         text = textFrame.contents.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " ");
-        original = text;
         replaced_texts = [];
         for (index = m = 0, len3 = dict.length; m < len3; index = ++m) {
           line = dict[index];
-          if (line[keyIndex] === "" || line[valueIndex] === "") {
+          if (line[keyIndex] === "" || line[valueIndex] === "" || line[keyIndex] === " " || line[valueIndex] === " ") {
             continue;
           }
           start_index = text.indexOf(line[keyIndex]);
