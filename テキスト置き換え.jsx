@@ -62,7 +62,7 @@
         ref = text.split('\t');
         for (j = 0, len = ref.length; j < len; j++) {
           a = ref[j];
-          elements.push(a.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " "));
+          elements.push(a.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " ").trim());
         }
         body.push(elements);
       }

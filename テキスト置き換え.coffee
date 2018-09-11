@@ -40,7 +40,7 @@ class Tsv
 
       elements = []
       for a in text.split('\t')
-        elements.push(a.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " "))
+        elements.push(a.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " ").trim())
       body.push(elements)
     file.close()
     body
