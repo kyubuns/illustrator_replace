@@ -19,6 +19,7 @@ Array.prototype.indexOf = (obj) ->
       return i
   return -1
 
+IsPhotoshop = (BridgeTalk != null && BridgeTalk.appName == 'photoshop')
 
 class Tsv
   @load: (filePath) ->
@@ -83,9 +84,11 @@ class Main
     # 文字列が長いものからヒットさせる
     dict.sort (a, b) -> b[keyIndex].length - a[keyIndex].length
 
-    for textFrame in root.textFrames
+    textFrames = root.textFrames
+    textFrames = (textFrame for textFrame in root.layers when textFrame.kind == LayerKind.TEXT) if IsPhotoshop
+    for textFrame in textFrames
       continue if textFrame.locked
-      continue if textFrame.visible
+      textFrame = textFrame.textItem if IsPhotoshop
       text = textFrame.contents.replace(/\n/g, " ").replace(/\r/g, " ").replace(/  /g, " ")
       replaced_texts = []
       for line, index in dict
@@ -104,10 +107,11 @@ class Main
       if replaced_texts.length > 0
         textFrame.contents = text
 
-        textArtRange = textFrame.textRange
-        for t in replaced_texts
-          for i in [t[0]..(t[0] + t[1] - 1)]
-            textArtRange.characters[i].fillColor = replacedTextColor
+        unless IsPhotoshop
+          textArtRange = textFrame.textRange
+          for t in replaced_texts
+            for i in [t[0]..(t[0] + t[1] - 1)]
+              textArtRange.characters[i].fillColor = replacedTextColor
 
     dict.sort (a, b) -> a[lineIndex] - b[lineIndex]
 
