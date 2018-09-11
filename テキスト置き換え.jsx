@@ -37,7 +37,7 @@
     return -1;
   };
 
-  IsPhotoshop = BridgeTalk.appName === 'photoshop';
+  IsPhotoshop = BridgeTalk !== null && BridgeTalk.appName === 'photoshop';
 
   Tsv = (function() {
     function Tsv() {}
@@ -88,7 +88,7 @@
     };
 
     Main.prototype.replace = function(root, dict) {
-      var e, i, index, j, k, keyIndex, l, len, len1, len2, len3, len4, len5, len6, line, lineIndex, m, n, o, p, q, ref, ref1, ref2, replacedTextColor, replaced_texts, start_index, t, text, textArtRange, textFrame, textFrames, used, valueIndex, warning;
+      var a, e, i, index, j, k, keyIndex, l, len, len1, len2, len3, len4, len5, len6, len7, line, lineIndex, m, n, o, p, q, r, ref, ref1, ref2, replacedTextColor, replaced_texts, start_index, t, text, textArtRange, textFrame, textFrames, used, valueIndex, warning;
       keyIndex = 0;
       valueIndex = 0;
       lineIndex = dict[0].length;
@@ -151,10 +151,16 @@
             continue;
           }
           start_index = text.indexOf(line[keyIndex]);
+          for (n = 0, len4 = replaced_texts.length; n < len4; n++) {
+            a = replaced_texts[n];
+            if (a[0] <= start_index && start_index < a[0] + a[1]) {
+              start_index = -1;
+            }
+          }
           if (start_index !== -1) {
             text = text.replace(line[keyIndex], line[valueIndex]);
-            for (n = 0, len4 = replaced_texts.length; n < len4; n++) {
-              i = replaced_texts[n];
+            for (o = 0, len5 = replaced_texts.length; o < len5; o++) {
+              i = replaced_texts[o];
               if (i[0] > start_index) {
                 i[0] += line[valueIndex].length - line[keyIndex].length;
               }
@@ -167,9 +173,9 @@
           textFrame.contents = text;
           if (!IsPhotoshop) {
             textArtRange = textFrame.textRange;
-            for (o = 0, len5 = replaced_texts.length; o < len5; o++) {
-              t = replaced_texts[o];
-              for (i = p = ref1 = t[0], ref2 = t[0] + t[1] - 1; ref1 <= ref2 ? p <= ref2 : p >= ref2; i = ref1 <= ref2 ? ++p : --p) {
+            for (p = 0, len6 = replaced_texts.length; p < len6; p++) {
+              t = replaced_texts[p];
+              for (i = q = ref1 = t[0], ref2 = t[0] + t[1] - 1; ref1 <= ref2 ? q <= ref2 : q >= ref2; i = ref1 <= ref2 ? ++q : --q) {
                 textArtRange.characters[i].fillColor = replacedTextColor;
               }
             }
@@ -180,7 +186,7 @@
         return a[lineIndex] - b[lineIndex];
       });
       warning = [];
-      for (index = q = 0, len6 = dict.length; q < len6; index = ++q) {
+      for (index = r = 0, len7 = dict.length; r < len7; index = ++r) {
         line = dict[index];
         if (used.indexOf(line[keyIndex]) !== -1) {
           continue;

@@ -94,6 +94,9 @@ class Main
       for line, index in dict
         continue if line[keyIndex] == "" || line[valueIndex] == "" || line[keyIndex] == " " || line[valueIndex] == " "
         start_index = text.indexOf(line[keyIndex])
+        for a in replaced_texts
+          if a[0] <= start_index && start_index < a[0] + a[1]
+            start_index = -1
         if start_index != -1
           text = text.replace(line[keyIndex], line[valueIndex])
 
